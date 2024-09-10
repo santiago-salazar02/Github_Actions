@@ -3,13 +3,16 @@ package swag.labs.utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.Objects;
+
 public class MyDriver {
     private WebDriver driver;
 
-    public MyDriver(){
+    public MyDriver(String browserName){
         String path = System.getProperty("user.dir");
-        System.setProperty("webdriver.chrome.driver",path+"\\drivers\\chromedriver.exe");
-        this.driver = new ChromeDriver();
+        if(Objects.equals(browserName, "CHROME")){
+            this.driver = new ChromeDriver();
+        }
     }
 
     public WebDriver getDriver() {
