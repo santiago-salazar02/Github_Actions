@@ -1,5 +1,6 @@
 package swag.labs.test;
 
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -18,9 +19,9 @@ public class PurchaseTest extends BaseTest {
     @Parameters({"checkoutFirstName",
             "checkoutLastName",
             "checkoutPostalCode"})
-    public void purchaseProduct(String checkoutFirstName,
-                                String checkoutLastName,
-                                String checkoutPostalCode){
+    public void purchaseProduct(@Optional("1") String checkoutFirstName,
+                                @Optional("1") String checkoutLastName,
+                                @Optional("1") String checkoutPostalCode){
         log.info("Starting purchaseProduct test...");
 
         int cartElements = 1;
