@@ -24,16 +24,27 @@ jobs:
           distribution: 'adopt'
       - name: Install Chrome dependencies
         run: |
-            sudo apt-get update
-            sudo apt-get install -y wget unzip
-            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-            sudo apt-get update
-            sudo apt-get install -y google-chrome-stable
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          sudo apt-get install -y xvfb
+
+      - name: Start Xvfb
+        run: |
+          /usr/bin/Xvfb :99 -ac &
+        env:
+          DISPLAY: :99
       - name: Build with Maven
         run: mvn clean
       - name: Run tests
-        run: mvn -DbrowserName=${{ inputs.browserName || 'CHROME' }} verify
+        run: mvn -DbrowserName=${{ github.event.inputs.browserName || 'CHROME' }} verify
+        env:
+          DISPLAY: :99
+          CHROME_BIN: /usr/bin/google-chrome
+          CHROME_ARGS: --headless --no-sandbox --disable-dev-shm-usage --remote-debugging-port=9222 --disable-gpu
       - name: Get Allure history
         uses: actions/checkout@v3
         if: always()
