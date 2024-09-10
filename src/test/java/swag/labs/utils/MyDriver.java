@@ -11,7 +11,6 @@ public class MyDriver {
     public MyDriver(String browserName){
         String path = System.getProperty("user.dir");
         if(Objects.equals(browserName, "CHROME")){
-            System.setProperty("webdriver.chrome.driver",path+"\\drivers\\chromedriver.exe");
             this.driver = new ChromeDriver();
         }
     }
