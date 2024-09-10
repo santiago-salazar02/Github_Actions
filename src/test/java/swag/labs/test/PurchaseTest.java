@@ -47,7 +47,7 @@ public class PurchaseTest extends BaseTest {
         CheckoutFinishPage checkoutFinishPage = checkoutOverviewPage.clickFinish();
 
         log.info("Verifying the completion message...");
-        softAssert.assertEquals(checkoutFinishPage.getTextCompleteHeader(),"Thank you for your purchase");
+        softAssert.assertEquals(checkoutFinishPage.getTextCompleteHeader(),"Thank you for your order!");
         softAssert.assertAll();
 
         log.info("purchaseProduct test completed.");
