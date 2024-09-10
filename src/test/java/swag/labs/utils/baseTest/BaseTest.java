@@ -17,7 +17,8 @@ public class BaseTest {
     public void beforeMethod(String url,
                              String username,
                              String password){
-        driver = new MyDriver();
+        String browserName = System.getProperty("browserName");
+        driver = new MyDriver(browserName);
         driver.getDriver().manage().window().maximize();
         navigateTo(url);
 
